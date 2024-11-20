@@ -1,0 +1,39 @@
+server:
+  port: 8080  # Puerto donde correrá el API Gateway
+
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      default-zone: http://localhost:8761/eureka  # URL del Eureka Server
+  instance:
+    hostname: localhost
+
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true  # Habilita el descubrimiento dinámico de servicios registrados en Eureka
+      routes:
+        - id: reloj-service
+          uri: lb://reloj-service  # Enrutamiento basado en el nombre registrado en Eureka
+          predicates:
+            - Path=/reloj/**
+        - id: horaextra-service
+          uri: lb://horaextra-service
+          predicates:
+            - Path=/horaextra/**
+        - id: descuento-service
+          uri: lb://descuento-service
+          predicates:
+            - Path=/descuento/**
+        - id: planilla-service
+          uri: lb://planilla-service
+          predicates:
+            - Path=/planilla/**
+        - id: reporte-service
+          uri: lb://reporte-service
+          predicates:
+            - Path=/reporte/**
