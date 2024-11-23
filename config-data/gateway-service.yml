@@ -38,17 +38,3 @@ spring:
           uri: lb://reporte-service
           predicates:
             - Path=/reporte/**
-
-      globalcors:
-        cors-configurations:
-          '[/**]': # Aplica esta configuración a todas las rutas
-            allowedOriginPatterns: "*" # Permitir todos los orígenes
-            allowedMethods: # Permitir todos los métodos HTTP
-              - GET
-              - POST
-              - PUT
-              - DELETE
-              - OPTIONS
-            allowedHeaders: # Permitir todos los encabezados
-              - "*"
-            allowCredentials: true # Permitir envío de cookies/credenciales
