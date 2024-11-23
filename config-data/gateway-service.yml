@@ -42,12 +42,13 @@ spring:
       globalcors:
         cors-configurations:
           '[/**]': # Aplica esta configuración a todas las rutas
-            allowedOrigins: "*" # Permitir todos los orígenes
+            allowedOriginPatterns: "*" # Permitir todos los orígenes
             allowedMethods: # Permitir todos los métodos HTTP
               - GET
               - POST
               - PUT
               - DELETE
+              - OPTIONS
             allowedHeaders: # Permitir todos los encabezados
               - "*"
             allowCredentials: true # Permitir envío de cookies/credenciales
