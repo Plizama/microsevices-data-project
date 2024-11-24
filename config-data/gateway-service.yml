@@ -1,0 +1,57 @@
+server:
+  port: 8081
+
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      default-zone: http://localhost:8761/eureka
+  instance:
+    hostname: localhost
+
+spring:
+  cloud:
+    gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOriginPatterns:
+              - "http://localhost:*"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+            allowedHeaders:
+              - "*"
+            allowCredentials: true
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: reloj-service
+          uri: lb://reloj-service
+          predicates:
+            - Path=/reloj/**
+        - id: horaextra-service
+          uri: lb://horaextra-service
+          predicates:
+            - Path=/horaextra/**
+        - id: descuento-service
+          uri: lb://descuento-service
+          predicates:
+            - Path=/descuento/**
+          filters:
+            - AddResponseHeader=Access-Control-Allow-Origin, http://localhost:5173
+            - AddResponseHeader=Access-Control-Allow-Credentials, true
+        - id: planilla-service
+          uri: lb://planilla-service
+          predicates:
+            - Path=/planilla/**
+        - id: reporte-service
+          uri: lb://reporte-service
+          predicates:
+            - Path=/reporte/**
